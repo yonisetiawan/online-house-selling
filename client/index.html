@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="icon" href="http://icons.iconarchive.com/icons/fps.hu/free-christmas-flat-circle/512/home-icon.png" type="image/gif" sizes="16x16">
+    <meta charset="utf-8">
+    <title>HousePedia</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/semantic.min.css">
+    <link rel="stylesheet" href="./css/sweetalert.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div class="ui container">
+        <nav id="navigation-bar" class="navbar navbar-default">
+            <ul id="navigation-links">
+                <li><a id="logo" href="#">HousePedia</a></li>
+                <li><a onclick="createIklan()" href="#">Pasang Iklan Rumah</a></li>
+                <div class="ui icon input">
+                    <input type="text" placeholder="Search...">
+                    <i class="circular search link icon"></i>
+                </div>
+                <li id="register" class="navbar-right"><a href="#">Sign up</a></li>
+                <li id="login" class="navbar-right"><a href="#">Login</a></li>
+            </ul>
+        </nav>
+        <div class="boxImageHome">
+            <img class="imageHome" src="http://www.bannerexpress.co.nz/images/flashgallary/large/Corflute_website.jpg">
+        </div>
+        <div class="ui grid">
+            <div class="two column row">
+                <div class="boxHouse">
+                    <img src="http://cdn.homedsgn.com/wp-content/uploads/2015/06/Solar-da-Serra-04-850x566.jpg" alt="">
+                </div>
+                <div id="map" class="boxMaps">
+                    <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.0228619079257!2d106.78313969246682!3d-6.260718695468401!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f1a8713ce207%3A0x2c3ea1f4a28bfac5!2sHacktiv8+Indonesia!5e0!3m2!1sid!2sid!4v1487661770161"
+                        width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe> -->
+                </div>
+            </div>
+        </div>
+
+
+        <div class="ui small modal">
+            <i class="close icon"></i>
+            <div class="header" align="center">
+                Input Your Products
+            </div>
+            <form class="ui form formUpdate">
+                <input type="hidden" id="id" placeholder="Title">
+                <div class="field">
+                    <input type="text" id="title" placeholder="Title">
+                </div>
+                <div class="field">
+                    <input type="text" id="address" placeholder="Address">
+                </div>
+                <div class="field">
+                    <textarea id="description" placeholder="Description" rows="3"></textarea>
+                </div>
+                <div class="field">
+                    <input type="text" id="price" placeholder="1000000">
+                </div>
+                <div class="field">
+                    <input type="text" id="contact" placeholder="085789897676">
+                </div>
+                <div class="field">
+                    <input type="file" name="fileInput"></input>
+                </div>
+                <div class="field">
+                    <label>Pilih Lokasi Rumah</label>
+                    <button onclick="getLocation()" type="button" name="button">Show Maps</button><br><br>
+                    <div id="mapsGetLocation" class="getMaps">
+
+                    </div>
+                </div>
+            </form>
+            <div class="actions">
+                <div onclick="" class="ui positive right labeled icon button">
+                    POST PRODUCTS
+                    <i class="checkmark icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script type="text/javascript" src="./js/semantic.min.js"></script>
+    <script type="text/javascript" src="./js/sweetalert.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7HolcV3Hn1mv9TooZPPiUypoZj3SIods"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.24/gmaps.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            map = new GMaps({
+                div: '#map',
+                zoom: 16,
+                lat: -6.260772,
+                lng: 106.781638,
+            })
+            map.addMarker({
+                lat: -6.260772,
+                lng: 106.781638,
+            });
+        });
+    </script>
+    <script type="text/javascript" src="./js/index.js"></script>
+</body>
+
+</html>
