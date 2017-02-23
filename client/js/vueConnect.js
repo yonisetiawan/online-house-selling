@@ -113,25 +113,6 @@ var app = new Vue({
 })
 
 app.getAllHouses()
-//
-// function openModalCreate () {
-//   $('#modal-create-home').modal('open')
-//   var map = new GMaps({
-//     div: '#map',
-//     zoom: 11,
-//     lat: -6.230259,
-//     lng: 106.8537713,
-//     click: function (e) {
-//       map.removeMarkers()
-//       map.addMarker({
-//         lat: e.latLng.lat(),
-//         lng: e.latLng.lng()
-//       })
-//       x = e.latLng.lat()
-//       y = e.latLng.lng()
-//     }
-//   })
-// }
 
 function pinMaps(latInput, lngInput) {
       map = new GMaps({
@@ -145,7 +126,6 @@ function pinMaps(latInput, lngInput) {
         lng: lngInput,
       });
 }
-
 function createIklan() {
     $('.small.modal')
         .modal('show');

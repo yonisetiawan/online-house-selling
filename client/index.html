@@ -25,34 +25,12 @@
                 <li id="login" class="navbar-right"><a href="#">Login</a></li>
             </ul>
         </nav>
-
         <div class="boxImageHome">
             <img class="imageHome" src="http://www.bannerexpress.co.nz/images/flashgallary/large/Corflute_website.jpg">
         </div>
-
         <div class="ui left aligned container" id="listView">
 
         </div>
-
-
-
-        <!-- <div class="ui left aligned container">
-        <div class="ui grid">
-            <div class="two column row">
-                <div class="boxHouse">
-                    <img v-bind:src="showHouses.imageUrl" alt="">
-                </div>
-                <div id="map" class="boxMaps">
-                </div>
-            </div>
-            <h1>{{showHouses.name}}</h1>
-            <p>{{showHouses.address}}</p>
-            <p>{{showHouses.description}}</p>
-            <h3>Rp. {{showHouses.price}}</h3>
-            <h4>Telp. {{showHouses.phone}}</h4>
-        </div>
-        </div> -->
-
 
 
         <div class="ui small modal">
@@ -77,9 +55,6 @@
                 <div class="field">
                     <input type="text" id="contact" placeholder="085789897676" v-model="inputHouse.phone">
                 </div>
-                <!-- <div class="field">
-                    <input type="file" name="fileInput" v-model="imageUrl"></input>
-                </div> -->
                 <div class="field">
                     <input type="text" id="imageUrl" placeholder="Image URL" v-model="inputHouse.imageUrl">
                 </div>
@@ -132,7 +107,6 @@
               </div>`
 
             $("#listView").append(tampung)
-
     </script>
 
     <script type="text/javascript" src="https://unpkg.com/vue/dist/vue.js"></script>
@@ -142,20 +116,6 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.24/gmaps.js"></script>
     <script type="text/javascript" src="./js/semantic.min.js"></script>
     <script type="text/javascript" src="./js/sweetalert.min.js"></script>
-    <script type="text/javascript">
-        // $(document).ready(function() {
-        //     map = new GMaps({
-        //         div: '#map',
-        //         zoom: 16,
-        //         lat: -6.260772,
-        //         lng: 106.781638,
-        //     })
-        //     map.addMarker({
-        //         lat: -6.260772,
-        //         lng: 106.781638,
-        //     });
-        // });
-    </script>
 </body>
 
 </html>
