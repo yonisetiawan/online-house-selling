@@ -30,35 +30,8 @@
             <img class="imageHome" src="http://www.bannerexpress.co.nz/images/flashgallary/large/Corflute_website.jpg">
         </div>
 
-        <div class="ui left aligned container">
-            <div class="ui three link cards">
-                  <div class="ui card" v-for="showHouses in houses">
-                      <div class="image">
-                          <img v-bind:src="showHouses.imageUrl">
-                      </div>
-                      <div class="content">
-                          <a class="header">{{showHouses.name}}</a>
-                          <div class="meta">
-                              <span class="date">Telp. {{showHouses.phone}}</span>
-                          </div>
-                          <div class="description">
-                              {{showHouses.address}}
-                          </div>
-                      </div>
-                      <div class="extra content">
-                          <span class="right floated">
-                                Rp. {{showHouses.price}}
-                              </span>
-                          <span class="left floated">
-                                <div class="ui buttons">
-                                    <button v-on:click="deleteOneHouse(showHouses._id)" class="ui red button">Remove</button>
-                                    <div class="or"></div>
-                                    <button class="ui positive button">Details</button>
-                                </div>
-                          </span>
-                      </div>
-                  </div>
-            </div>
+        <div class="ui left aligned container" id="listView">
+
         </div>
 
 
@@ -67,16 +40,16 @@
         <div class="ui grid">
             <div class="two column row">
                 <div class="boxHouse">
-                    <img src="http://cdn.homedsgn.com/wp-content/uploads/2015/06/Solar-da-Serra-04-850x566.jpg" alt="">
+                    <img v-bind:src="showHouses.imageUrl" alt="">
                 </div>
                 <div id="map" class="boxMaps">
                 </div>
             </div>
-            <h1>Rumah Pondok Indah</h1>
-            <p>Jakarta Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>description Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <h3>Rp. 4544444454</h3>
-            <h4>Telp. 098709870870987</h4>
+            <h1>{{showHouses.name}}</h1>
+            <p>{{showHouses.address}}</p>
+            <p>{{showHouses.description}}</p>
+            <h3>Rp. {{showHouses.price}}</h3>
+            <h4>Telp. {{showHouses.phone}}</h4>
         </div>
         </div> -->
 
@@ -127,6 +100,41 @@
     </div>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        var tampung = `      <div class="ui three link cards">
+                    <div class="ui card" v-for="showHouses in houses">
+                        <div class="image">
+                            <img v-bind:src="showHouses.imageUrl">
+                        </div>
+                        <div class="content">
+                            <a class="header">{{showHouses.name}}</a>
+                            <div class="meta">
+                                <span class="date">Telp. {{showHouses.phone}}</span>
+                            </div>
+                            <div class="description">
+                                {{showHouses.address}}
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <span class="right floated">
+                                  Rp. {{showHouses.price}}
+                                </span>
+                            <span class="left floated">
+                                  <div class="ui buttons">
+                                      <button v-on:click="deleteOneHouse(showHouses._id)" class="ui red button">Remove</button>
+                                      <div class="or"></div>
+                                      <button v-on:click="showDetailHouse(showHouses._id)" class="ui positive button">Details</button>
+                                  </div>
+                            </span>
+                        </div>
+                    </div>
+              </div>`
+
+            $("#listView").append(tampung)
+
+    </script>
+
     <script type="text/javascript" src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="text/javascript" src="./js/vueConnect.js"></script>

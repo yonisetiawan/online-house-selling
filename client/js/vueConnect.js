@@ -1,3 +1,4 @@
+
 var app = new Vue({
   el: '#app',
   data: {
@@ -41,7 +42,7 @@ var app = new Vue({
         inputHouse: app.inputHouse,
       })
         .then(function (result) {
-          app.houses.push(result.data)
+          app.houses.unshift(result.data)
           app.inputHouse.name = ''
           app.inputHouse.address = ''
           app.inputHouse.description = ''
@@ -56,6 +57,7 @@ var app = new Vue({
         })
     },
     deleteOneHouse: function (inputid) {
+
       axios({
           method: 'delete',
           url: 'http://localhost:3000/api/delete',
@@ -72,84 +74,78 @@ var app = new Vue({
           console.log(error)
       })
     },
-    editOneHouse: function (editid) {
-      axios.put(`http://localhost:3000/api/houses`, {
-        id: app.editHouse._id,
-        name: app.editHouse.name,
-        description: app.editHouse.description
+    showDetailHouse: function (inputid) {
+      document.getElementById("listView").innerHTML = ""
+
+      axios.post('http://localhost:3000/api/detail', {
+        id: inputid,
       })
         .then(function (result) {
-          console.log(result)
-          document.getElementById(`${result.data._id}`)
-          $(`#${result.data._id} span`).html(result.data.name)
-          $(`#${result.data._id} p`).html(result.data.description)
+          var detailData = `
+              <div class="ui grid">
+                  <div class="two column row">
+                      <div class="boxHouse">
+                          <img src="${result.data.imageUrl}" alt="">
+                      </div>
+                      <div id="mapdetails" class="boxMaps">
+                      </div>
+                  </div>
+                  <div class="detailData">
+                  <h1>${result.data.name}</h1>
+                  <p>${result.data.address}</p>
+                  <p>${result.data.description}</p>
+                  <h3>Rp. ${result.data.price}</h3>
+                  <h4>Telp. ${result.data.phone}}</h4>
+                  </div>
+              </div>`
+
+          $("#listView").append(detailData)
+          pinMaps(result.data.lat, result.data.lng)
+
         })
         .catch(function (error) {
           console.log(error)
         })
-    },
-    preEditOneHouse: function (editid) {
-      $('#modal-edit-home').modal('open')
-      axios.get(`http://localhost:3000/api/houses/${editid}`)
-        .then(function (result) {
-          app.editHouse._id = result.data._id
-          app.editHouse.name = result.data.name
-          app.editHouse.description = result.data.description
-          app.editHouse.imageUrl = result.data.imageUrl
-          // add maps to modal form
-          var map2 = new GMaps({
-            div: '#map2',
-            zoom: 11,
-            lat: -6.230259,
-            lng: 106.8537713,
-            click: function (e) {
-              map.removeMarkers()
-              map.addMarker({
-                lat: e.latLng.lat(),
-                lng: e.latLng.lng()
-              })
-              console.log(e.latLng.lat())
-              console.log(e.latLng.lng())
-              x = e.latLng.lat()
-              y = e.latLng.lng()
-            }
-          })
-          // add marker
-          map.addMarker({
-            lat: -12.043333,
-            lng: -77.028333,
-            title: 'Lima',
-            click: function (e) {
-              alert('You clicked in this marker')
-            }
-          })
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
+
     }
+
   }
 })
 
 app.getAllHouses()
-function openModalCreate () {
-  $('#modal-create-home').modal('open')
-  var map = new GMaps({
-    div: '#map',
-    zoom: 11,
-    lat: -6.230259,
-    lng: 106.8537713,
-    click: function (e) {
-      map.removeMarkers()
-      map.addMarker({
-        lat: e.latLng.lat(),
-        lng: e.latLng.lng()
+//
+// function openModalCreate () {
+//   $('#modal-create-home').modal('open')
+//   var map = new GMaps({
+//     div: '#map',
+//     zoom: 11,
+//     lat: -6.230259,
+//     lng: 106.8537713,
+//     click: function (e) {
+//       map.removeMarkers()
+//       map.addMarker({
+//         lat: e.latLng.lat(),
+//         lng: e.latLng.lng()
+//       })
+//       x = e.latLng.lat()
+//       y = e.latLng.lng()
+//     }
+//   })
+// }
+
+function pinMaps(latInput, lngInput) {
+      map = new GMaps({
+          div: '#mapdetails',
+          zoom: 16,
+          lat: latInput,
+          lng: lngInput,
       })
-      x = e.latLng.lat()
-      y = e.latLng.lng()
-    }
-  })
+      map.addMarker({
+        lat: latInput,
+        lng: lngInput,
+      });
 }
+
 function createIklan() {
     $('.small.modal')
         .modal('show');

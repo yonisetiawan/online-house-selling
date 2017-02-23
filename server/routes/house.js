@@ -33,4 +33,10 @@ router.delete('/delete',function(req, res, next) {
   })
 })
 
+router.post('/detail',function(req, res, next) {
+  modelsHouse.findById(req.body.id, function(err, result) {
+      res.send(result)
+  })
+})
+
 module.exports = router;
