@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div class="ui container">
+    <div id="app" class="ui container">
         <nav id="navigation-bar" class="navbar navbar-default">
             <ul id="navigation-links">
                 <li><a id="logo" href="#">HousePedia</a></li>
@@ -25,20 +25,51 @@
                 <li id="login" class="navbar-right"><a href="#">Login</a></li>
             </ul>
         </nav>
+
         <div class="boxImageHome">
             <img class="imageHome" src="http://www.bannerexpress.co.nz/images/flashgallary/large/Corflute_website.jpg">
         </div>
-        <div class="ui grid">
+
+        <div class="ui left aligned container">
+            <div class="ui three link cards">
+                  <div class="ui card" v-for="showHouses in houses">
+                      <div class="image">
+                          <img v-bind:src="showHouses.imageUrl">
+                      </div>
+                      <div class="content">
+                          <a class="header">{{showHouses.name}}</a>
+                          <div class="meta">
+                              <span class="date">Telp. {{showHouses.phone}}</span>
+                          </div>
+                          <div class="description">
+                              {{showHouses.address}}
+                          </div>
+                      </div>
+                      <div class="extra content">
+                          <span class="right floated">
+                                Rp. {{showHouses.price}}
+                              </span>
+                          <span class="left floated">
+                                <div class="ui buttons">
+                                    <button class="ui red button">Remove</button>
+                                    <div class="or"></div>
+                                    <button class="ui positive button">Details</button>
+                                </div>
+                          </span>
+                      </div>
+                  </div>
+            </div>
+        </div>
+
+        <!-- <div class="ui grid">
             <div class="two column row">
                 <div class="boxHouse">
                     <img src="http://cdn.homedsgn.com/wp-content/uploads/2015/06/Solar-da-Serra-04-850x566.jpg" alt="">
                 </div>
                 <div id="map" class="boxMaps">
-                    <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.0228619079257!2d106.78313969246682!3d-6.260718695468401!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f1a8713ce207%3A0x2c3ea1f4a28bfac5!2sHacktiv8+Indonesia!5e0!3m2!1sid!2sid!4v1487661770161"
-                        width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe> -->
                 </div>
             </div>
-        </div>
+        </div>  -->
 
 
         <div class="ui small modal">
@@ -47,35 +78,37 @@
                 Input Your Products
             </div>
             <form class="ui form formUpdate">
-                <input type="hidden" id="id" placeholder="Title">
+                <!-- <input type="hidden" id="id" placeholder="Title" v-model="_id"> -->
                 <div class="field">
-                    <input type="text" id="title" placeholder="Title">
+                    <input type="text" id="title" placeholder="Title" v-model="inputHouse.name">
                 </div>
                 <div class="field">
-                    <input type="text" id="address" placeholder="Address">
+                    <input type="text" id="address" placeholder="Address" v-model="inputHouse.address">
                 </div>
                 <div class="field">
-                    <textarea id="description" placeholder="Description" rows="3"></textarea>
+                    <textarea id="description" placeholder="Description" rows="3" v-model="inputHouse.description"></textarea>
                 </div>
                 <div class="field">
-                    <input type="text" id="price" placeholder="1000000">
+                    <input type="text" id="price" placeholder="1000000" v-model="inputHouse.price">
                 </div>
                 <div class="field">
-                    <input type="text" id="contact" placeholder="085789897676">
+                    <input type="text" id="contact" placeholder="085789897676" v-model="inputHouse.phone">
                 </div>
+                <!-- <div class="field">
+                    <input type="file" name="fileInput" v-model="imageUrl"></input>
+                </div> -->
                 <div class="field">
-                    <input type="file" name="fileInput"></input>
+                    <input type="text" id="imageUrl" placeholder="Image URL" v-model="inputHouse.imageUrl">
                 </div>
                 <div class="field">
                     <label>Pilih Lokasi Rumah</label>
                     <button onclick="getLocation()" type="button" name="button">Show Maps</button><br><br>
                     <div id="mapsGetLocation" class="getMaps">
-
                     </div>
                 </div>
             </form>
             <div class="actions">
-                <div onclick="" class="ui positive right labeled icon button">
+                <div v-on:click="createOneHouse()" class="ui positive right labeled icon button">
                     POST PRODUCTS
                     <i class="checkmark icon"></i>
                 </div>
@@ -83,28 +116,28 @@
         </div>
     </div>
 
-
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://unpkg.com/vue/dist/vue.js"></script>
-    <script type="text/javascript" src="./js/semantic.min.js"></script>
-    <script type="text/javascript" src="./js/sweetalert.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="./js/vueConnect.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7HolcV3Hn1mv9TooZPPiUypoZj3SIods"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.24/gmaps.js"></script>
+    <script type="text/javascript" src="./js/semantic.min.js"></script>
+    <script type="text/javascript" src="./js/sweetalert.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function() {
-            map = new GMaps({
-                div: '#map',
-                zoom: 16,
-                lat: -6.260772,
-                lng: 106.781638,
-            })
-            map.addMarker({
-                lat: -6.260772,
-                lng: 106.781638,
-            });
-        });
+        // $(document).ready(function() {
+        //     map = new GMaps({
+        //         div: '#map',
+        //         zoom: 16,
+        //         lat: -6.260772,
+        //         lng: 106.781638,
+        //     })
+        //     map.addMarker({
+        //         lat: -6.260772,
+        //         lng: 106.781638,
+        //     });
+        // });
     </script>
-    <script type="text/javascript" src="./js/index.js"></script>
 </body>
 
 </html>

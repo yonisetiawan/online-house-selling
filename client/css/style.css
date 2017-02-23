@@ -96,3 +96,11 @@ div.ui.icon{
 .formUpdate{
   padding: 5%;
 }
+
+div.ui.card{
+  margin-left: 1rem;
+}
+
+.list{
+  margin-top: 1%;
+}
