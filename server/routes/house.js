@@ -27,4 +27,10 @@ router.post('/add', function(req, res, next) {
   })
 });
 
+router.delete('/delete',function(req, res, next) {
+  modelsHouse.findByIdAndRemove(req.body.id, function(result) {
+      res.send(req.body.id)
+  })
+})
+
 module.exports = router;

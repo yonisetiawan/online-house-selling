@@ -3,6 +3,7 @@ var app = new Vue({
   data: {
     message: 'Welcome to HousePedia',
     houses: [],
+    detailHouse: [],
     inputHouse: {
       name: '',
       address: '',
@@ -36,8 +37,6 @@ var app = new Vue({
         })
     },
     createOneHouse: function () {
-      console.log(app.inputHouse.image);
-      console.log(app.inputHouse.lat);
       axios.post('http://localhost:3000/api/add', {
         inputHouse: app.inputHouse,
       })
@@ -57,14 +56,21 @@ var app = new Vue({
         })
     },
     deleteOneHouse: function (inputid) {
-      axios.delete(`http://localhost:3000/api/houses/${inputid}`, {})
-        .then(function (result) {
-          console.log(result)
-          document.getElementById(`${result.data._id}`).remove()
-        })
-        .catch(function (error) {
+      axios({
+          method: 'delete',
+          url: 'http://localhost:3000/api/delete',
+          data: {
+              id: inputid
+          }
+      }).then(function(result) {
+          for (var i = 0; i < app.houses.length; i++) {
+              if (app.houses[i]._id == result.data) {
+                  app.houses.splice(i, 1)
+              }
+          }
+      }).catch(function(error) {
           console.log(error)
-        })
+      })
     },
     editOneHouse: function (editid) {
       axios.put(`http://localhost:3000/api/houses`, {
@@ -124,6 +130,7 @@ var app = new Vue({
     }
   }
 })
+
 app.getAllHouses()
 function openModalCreate () {
   $('#modal-create-home').modal('open')
@@ -138,8 +145,6 @@ function openModalCreate () {
         lat: e.latLng.lat(),
         lng: e.latLng.lng()
       })
-      console.log(e.latLng.lat())
-      console.log(e.latLng.lng())
       x = e.latLng.lat()
       y = e.latLng.lng()
     }
